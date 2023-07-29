@@ -1,3 +1,7 @@
 body {
-  background-color: royalblue;
+  background-color: rgb(207, 213, 230);
+}
+
+img {
+  border-radius: 15px;;
 }
