@@ -41,20 +41,49 @@
         </p>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center"></div>
       </div>
+
+      <!-- Form -->
+      <form>
+        <div class="mb-3">
+          <label for="student" class="form-label">Student:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="student"
+            aria-describedby="newStudent"
+            placeholder="Ex: Harry Potter"
+          />
+        </div>
+        <button id="submit" class="btn btn-primary">Sort!</button>
+      </form>
+
+      <!-- House buttons filter -->
+      <h5>Student Filter</h5>
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-primary">All</button>
+        <button type="button" class="btn btn-primary">Gryffindor</button>
+        <button type="button" class="btn btn-primary">Hufflepuff</button>
+        <button type="button" class="btn btn-primary">Ravenclaw</button>
+        <button type="button" class="btn btn-primary">Slytherin</button>
+      </div>
     </div>
 
-    <!-- Card Component -->
-    <div class="container">
-      <div class="card">
-        <div class="card-header">Featured</div>
-        <div class="card-body">
-          <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">
-            With supporting text below as a natural lead-in to additional
-            content.
-          </p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+    <!-- Card Components -->
+    <div id="app">
+      <div class="container">
+        <div class="card">
+          <div class="card-header">First Year's</div>
+          <div class="card-body">
+            <h5 class="card-title">Students</h5>
+          </div>
         </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">He Who Must Not Be Named's Army</div>
+      <div class="card-body">
+        <h5 class="card-title">The Expelled</h5>
       </div>
     </div>
 
