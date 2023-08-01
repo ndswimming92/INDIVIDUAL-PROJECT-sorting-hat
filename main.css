@@ -5,3 +5,8 @@ body {
 img {
   border-radius: 15px;;
 }
+
+button .submit {
+  padding: 15px;
+  margin: 15px;
+}
