@@ -52,7 +52,7 @@ function updateStudentList() {
 
     li.appendChild(expelButton);
 
-    if (student.house === "He Who Must Not Be Named") {
+    if (student.house.toLowerCase() === "he who must not be named") {
       expelledStudentList.appendChild(li);
     } else {
       studentList.appendChild(li);
@@ -64,8 +64,9 @@ function updateStudentList() {
 function expelStudent(student) {
   const index = students.indexOf(student);
   if (index !== -1) {
-    students.splice(index, 1);
+    student.house = "He Who Must Not Be Named";
     expelledStudents.push(student);
+    students.splice(index, 1);
     updateStudentList();
   }
 }
@@ -92,8 +93,16 @@ function handleFormSubmit(event) {
 // Function to filter students by house
 function filterStudentsByHouse(house) {
   const filteredStudents = students.filter(
-    (student) => student.house === house
+    (student) => student.house.toLowerCase() === house.toLowerCase()
   );
+
+  // Include expelled students in the filtered list
+  expelledStudents.forEach((student) => {
+    if (student.house.toLowerCase() === house.toLowerCase()) {
+      filteredStudents.push(student);
+    }
+  });
+
   updateFilteredStudentList(filteredStudents);
 }
 
@@ -102,23 +111,28 @@ function updateFilteredStudentList(filteredStudents) {
   const studentList = document.getElementById("student-list");
   studentList.innerHTML = "";
 
-  filteredStudents.forEach((student) => {
+  if (filteredStudents.length === 0) {
     const li = document.createElement("li");
-    li.textContent =
-      assets / sh.png + + student.name + " - " + student.house;
-
-    const expelButton = document.createElement("button");
-    expelButton.textContent = "Expgel";
-    expelButton.classList.add("btn", "btn-danger", "mx-2");
-
-    // Event listener to expel the student
-    expelButton.addEventListener("click", () => {
-      expelStudent(student);
-    });
-
-    li.appendChild(expelButton);
+    li.textContent = "No students found for this house.";
     studentList.appendChild(li);
-  });
+  } else {
+    filteredStudents.forEach((student) => {
+      const li = document.createElement("li");
+      li.textContent = student.name + " - " + student.house;
+
+      const expelButton = document.createElement("button");
+      expelButton.textContent = "Expel";
+      expelButton.classList.add("btn", "btn-danger", "mx-2");
+
+      // Event listener to expel the student
+      expelButton.addEventListener("click", () => {
+        expelStudent(student);
+      });
+
+      li.appendChild(expelButton);
+      studentList.appendChild(li);
+    });
+  }
 }
 
 // Event listener for form submission
@@ -129,8 +143,8 @@ studentForm.addEventListener("submit", handleFormSubmit);
 const houseFilterButtons = document.querySelectorAll(".btn-group button");
 houseFilterButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    const house = button.value;
-    if (house === "All") {
+    const house = button.value.toLowerCase(); // Convert to lowercase
+    if (house === "all") {
       updateStudentList();
     } else {
       filterStudentsByHouse(house);
