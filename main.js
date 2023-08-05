@@ -104,11 +104,10 @@ function updateFilteredStudentList(filteredStudents) {
 
   filteredStudents.forEach((student) => {
     const li = document.createElement("li");
-    li.textContent =
-      assets / sh.png + + student.name + " - " + student.house;
+    li.textContent = assets / sh.png + +student.name + " - " + student.house;
 
     const expelButton = document.createElement("button");
-    expelButton.textContent = "Expgel";
+    expelButton.textContent = "Expel";
     expelButton.classList.add("btn", "btn-danger", "mx-2");
 
     // Event listener to expel the student
