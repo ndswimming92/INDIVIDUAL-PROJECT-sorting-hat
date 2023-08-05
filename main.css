@@ -2,20 +2,28 @@ body {
   background-color: rgb(207, 213, 230);
 }
 
-@font-face { font-family: 'HarryPotter'; 
- src: url('/Users/nicholas.davidson/workspace/foundations/Inclass/INDIVIDUAL-PROJECT-sorting-hat/Fonts/HarryPotter-ov4z.ttf') format('ttf'); 
-  }
+@font-face {
+  font-family: 'harryPotter';
+  src: url('Fonts/HarryPotter-ov4z.ttf') format('ttf');
+}
 
-  @font-face { font-family: 'Magic'; 
-     src: url('Fonts/MagicSchoolTwo-4n5D.ttf') format('ttf');
-  }
+@font-face {
+  font-family: 'Magic';
+  src: url('Fonts/MagicSchoolTwo-4n5D.ttf') format('ttf');
+}
 
-  @font-face { font-family: 'Parsel'; 
-       src: url('Fonts/Parseltongue-GOnG.ttf') format('ttf');
-  }
+@font-face {
+  font-family: 'Parsel';
+  src: url('Fonts/Parseltongue-GOnG.ttf') format('ttf');
+}
 
-  h1 {
-    font-family: 'HarryPotter', sans-serif;
+
+
+
+
+h1 {
+  font-family: 'harryPotter', sans-serif;
+  
   }
 
 
