@@ -4,17 +4,26 @@ body {
 
 @font-face {
   font-family: 'harryPotter';
-  src: url('Fonts/HarryPotter-ov4z.ttf') format('ttf');
+  src: url('Fonts/HarryPotter-ov4z.ttf') format('ttf')
+       url('Fonts/HarryPotter-ov4z.woff2') format('woff2'),
+       url('Fonts/HarryPotter-ov4z.woff') format('woff'),
+       url('Fonts/HarryPotter-ov4z.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'Magic';
-  src: url('Fonts/MagicSchoolTwo-4n5D.ttf') format('ttf');
+  src: url('Fonts/MagicSchoolTwo-4n5D.ttf') format('ttf')
+       url('Fonts/MagicSchoolTwo-4n5D.woff2') format('woff2'),
+       url('Fonts/MagicSchoolTwo-4n5D.woff') format('woff'),
+       url('Fonts/MagicSchoolTwo-4n5D.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'Parsel';
-  src: url('Fonts/Parseltongue-GOnG.ttf') format('ttf');
+  src: url('Fonts/Parseltongue-GOnG.ttf') format('ttf')
+       url('Fonts/Parseltongue-GOnG.woff2') format('woff2'),
+       url('Fonts/Parseltongue-GOnG.woff') format('woff'),
+       url('Fonts/Parseltongue-GOnG.ttf') format('truetype');
 }
 
 
@@ -26,6 +35,16 @@ h1 {
   
   }
 
+  h3 {
+    font-family: 'Parsel', sans-serif;
+  }
+  #fy {
+    font-family: 'Magic', sans-serif;
+  }
+
+  #student-list {
+    font-family: 'harryPotter', sans-serif;
+  }
 
 img {
   border-radius: 15px;
