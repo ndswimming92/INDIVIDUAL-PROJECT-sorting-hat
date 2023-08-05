@@ -3,10 +3,28 @@ body {
 }
 
 img {
-  border-radius: 15px;;
+  border-radius: 15px;
+
 }
 
-button .submit {
-  padding: 15px;
-  margin: 15px;
+
+.card {
+  border: 2px solid blue;
+  padding: 10px;
+  margin: 10px;
+}
+
+li {
+  margin: 2px;
+  padding: 5px;
+  list-style-type: none;
+  text-align: center;
+}
+
+.card-header {
+  text-align: center;
+}
+
+form {
+  margin-bottom: 25px;
 }

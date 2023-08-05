@@ -1,96 +1,142 @@
-// Object of students
-const firstYears = [
-  {
-    id: 1,
-    name: "",
-    houseName: "Gryffindor",
-    houseEmblem: "assets/gryffindor.jpeg",
-  },
-  {
-    id: 2,
-    name: "",
-    houseName: "Ravenclaw",
-    houseEmblem: "assets/Ravenclaw.jpeg",
-  },
-  {
-    id: 3,
-    name: "",
-    houseName: "Gryffindor",
-    houseEmblem: "assets/gryffindor.jpeg",
-  },
-  {
-    id: 4,
-    name: "",
-    houseName: "Gryffindor",
-    houseEmblem: "assets/gryffindor.jpeg",
-  },
-  {
-    id: 5,
-    name: "",
-    houseName: "Slytherin",
-    houseEmblem: "assets/Slytherin.jpeg",
-  },
-  {
-    id: 6,
-    name: "",
-    houseName: "Ravenclaw",
-    houseEmblem: "assets/Ravenclaw.jpeg",
-  },
-  {
-    id: 7,
-    name: "",
-    houseName: "Gryffindor",
-    houseEmblem: "assets/gryffindor.jpeg",
-  },
-  {
-    id: 8,
-    name: "",
-    houseName: "Ravenclaw",
-    houseEmblem: "assets/Ravenclaw.jpeg",
-  },
-  {
-    id: 9,
-    name: "",
-    houseName: "Hufflepuff",
-    houseEmblem: "assets/Hufflepuff.jpeg",
-  },
-  {
-    id: 10,
-    name: "",
-    houseName: "Gryffindor",
-    houseEmblem: "assets/gryffindor.jpeg",
-  },
-];
+// list of students
+const students = [];
 
+// list of expelled students
+const expelledStudents = [];
 
-
-const renderToDom = (divId, htmlToRender) => {
-  const selectedDiv = document.querySelector(divId);
-  selectedDiv.innerHTML = htmlToRender;
+const houseColors = {
+  Gryffindor: "#D32F2F",
+  Hufflepuff: "#FFC107",
+  Ravenclaw: "#03A9F4",
+  Slytherin: "#4CAF50",
 };
 
-const cardsOnDom = (array) => {
-  let domString = "";
-  for (const member of array) {
-    domString += `<div class="card">
-    <div class="card-header">${firstYears.houseName}</div>
-    <div class="card-body">
-      <h5 class="card-title">${firstYears.name}</h5>
-    </div>`;
-  }
-  renderToDom("#app", domString);
-};
+// Sorting the student into a house
+function sortStudent(studentName) {
+  const houses = ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"];
+  const house = houses[Math.floor(Math.random() * houses.length)];
 
+  const student = {
+    name: studentName,
+    house: house,
+  };
 
+  students.push(student);
 
-const filter = (array, emblem) => {
-  const emblemArray = [];
+  // Updating student list in the UI
+  updateStudentList();
+}
 
-  array.forEach((item) => {
-    if (item.houseName === emblem) {
-      emblemArray.push(item);
+// Function to update the student and expelled student lists in the UI
+function updateStudentList() {
+  const studentList = document.getElementById("student-list");
+  const expelledStudentList = document.getElementById("expelled-students");
+
+  // Lists being cleared
+  studentList.innerHTML = "";
+  expelledStudentList.innerHTML = "";
+
+  // Iterate through the students and update the lists
+  students.forEach((student) => {
+    const li = document.createElement("li");
+    li.textContent = student.name + " - " + student.house;
+
+    const expelButton = document.createElement("button");
+    expelButton.textContent = "Expel Student!";
+    expelButton.classList.add("btn", "btn-danger", "mx-2");
+
+    // Expelling the students
+    expelButton.addEventListener("click", () => {
+      expelStudent(student);
+    });
+
+    li.appendChild(expelButton);
+
+    if (student.house === "He Who Must Not Be Named") {
+      expelledStudentList.appendChild(li);
+    } else {
+      studentList.appendChild(li);
     }
   });
-
-  return colorArray;
 }
+
+// Function to expel a student
+function expelStudent(student) {
+  const index = students.indexOf(student);
+  if (index !== -1) {
+    students.splice(index, 1);
+    expelledStudents.push(student);
+    updateStudentList();
+  }
+}
+
+// Handling the form submission
+function handleFormSubmit(event) {
+  event.preventDefault();
+
+  const studentNameInput = document.getElementById("studentInput");
+  const studentName = studentNameInput.value.trim();
+
+  // creating the alert boax if students is empty
+  if (studentName === "") {
+    alert("Please enter a student's name for this first year.");
+    return;
+  }
+
+  sortStudent(studentName);
+
+  // Clear the input field after sorting
+  studentNameInput.value = "";
+}
+
+// Function to filter students by house
+function filterStudentsByHouse(house) {
+  const filteredStudents = students.filter(
+    (student) => student.house === house
+  );
+  updateFilteredStudentList(filteredStudents);
+}
+
+// Function to update the filtered student list in the UI
+function updateFilteredStudentList(filteredStudents) {
+  const studentList = document.getElementById("student-list");
+  studentList.innerHTML = "";
+
+  filteredStudents.forEach((student) => {
+    const li = document.createElement("li");
+    li.textContent =
+      assets / sh.png + + student.name + " - " + student.house;
+
+    const expelButton = document.createElement("button");
+    expelButton.textContent = "Expgel";
+    expelButton.classList.add("btn", "btn-danger", "mx-2");
+
+    // Event listener to expel the student
+    expelButton.addEventListener("click", () => {
+      expelStudent(student);
+    });
+
+    li.appendChild(expelButton);
+    studentList.appendChild(li);
+  });
+}
+
+// Event listener for form submission
+const studentForm = document.getElementById("studentForm");
+studentForm.addEventListener("submit", handleFormSubmit);
+
+// Event listener for house filter buttons
+const houseFilterButtons = document.querySelectorAll(".btn-group button");
+houseFilterButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const house = button.value;
+    if (house === "All") {
+      updateStudentList();
+    } else {
+      filterStudentsByHouse(house);
+    }
+  });
+});
+
+// Show the UI when the page loads
+updateStudentList();
