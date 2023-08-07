@@ -4,13 +4,6 @@ const students = [];
 // list of expelled students
 const expelledStudents = [];
 
-const houseColors = {
-  Gryffindor: "#D32F2F",
-  Hufflepuff: "#FFC107",
-  Ravenclaw: "#03A9F4",
-  Slytherin: "#4CAF50",
-};
-
 // Sorting the student into a house
 function sortStudent(studentName) {
   const houses = ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"];
@@ -26,6 +19,20 @@ function sortStudent(studentName) {
   // Updating student list in the UI
   updateStudentList();
 }
+
+// Event listener for house filter buttons
+const houseFilterButtons = document.querySelectorAll(".btn-group button");
+houseFilterButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const house = button.value.toLowerCase(); // Convert to lowercase
+    if (house === "all") {
+      updateStudentList("student-list"); // Update the student list
+    } else {
+      updateStudentList("expelled-students"); // Update the expelled student list
+      filterStudentsByHouse(house);
+    }
+  });
+});
 
 // Function to update the student and expelled student lists in the UI
 function updateStudentList() {
@@ -63,11 +70,17 @@ function updateStudentList() {
 // Function to expel a student
 function expelStudent(student) {
   const index = students.indexOf(student);
+  let li;
   if (index !== -1) {
-    student.house = "He Who Must Not Be Named";
     expelledStudents.push(student);
     students.splice(index, 1);
     updateStudentList();
+    let expelledDiv = document.body.querySelector("#expelled-students");
+    expelledStudents.forEach((student) => {
+      li = document.createElement("li");
+      li.textContent = student.name + " - " + student.house;
+      expelledDiv.appendChild(li);
+    });
   }
 }
 
@@ -95,13 +108,6 @@ function filterStudentsByHouse(house) {
   const filteredStudents = students.filter(
     (student) => student.house.toLowerCase() === house.toLowerCase()
   );
-
-  // Include expelled students in the filtered list
-  expelledStudents.forEach((student) => {
-    if (student.house.toLowerCase() === house.toLowerCase()) {
-      filteredStudents.push(student);
-    }
-  });
 
   updateFilteredStudentList(filteredStudents);
 }
@@ -138,19 +144,3 @@ function updateFilteredStudentList(filteredStudents) {
 // Event listener for form submission
 const studentForm = document.getElementById("studentForm");
 studentForm.addEventListener("submit", handleFormSubmit);
-
-// Event listener for house filter buttons
-const houseFilterButtons = document.querySelectorAll(".btn-group button");
-houseFilterButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    const house = button.value.toLowerCase(); // Convert to lowercase
-    if (house === "all") {
-      updateStudentList();
-    } else {
-      filterStudentsByHouse(house);
-    }
-  });
-});
-
-// Show the UI when the page loads
-updateStudentList();
